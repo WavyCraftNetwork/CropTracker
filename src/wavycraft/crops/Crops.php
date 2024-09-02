@@ -155,7 +155,7 @@ class Crops extends PluginBase implements Listener {
         $rank = 1;
         foreach ($topPlayers as $playerName => $cropData) {
             $totalCrops = is_array($cropData) ? array_sum($cropData) : $cropData;
-            $text .= "{$rank}. {$playerName}: §e{$totalCrops} crops\n";
+            $text .= "§e{$rank}.§f {$playerName}: §e{$totalCrops} crops\n";
             $rank++;
         }
 
@@ -181,7 +181,7 @@ class Crops extends PluginBase implements Listener {
         $text = "§l§7-=Top 10 Crop Harvesters=-\n";
         $rank = 1;
         foreach ($topPlayers as $playerName => $cropCount) {
-            $text .= "{$rank}. {$playerName}: §e{$cropCount} crops\n";
+            $text .= "§e{$rank}§f. {$playerName}: §e{$cropCount} crops\n";
             $rank++;
         }
 
