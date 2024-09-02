@@ -44,13 +44,13 @@ class CropCommand extends Command implements PluginOwned {
         });
 
         $form->setTitle($player->getName() . " Crop Status");
-        $message = "Here are your crop farming stats:\n";
+        $message = "Here are your crop farming stats:\n \n";
 
         if (empty($playerData)) {
-            $message .= "You haven't farmed any crops yet!";
+            $message .= "§cYou haven't farmed any crops yet!";
         } else {
             foreach ($playerData as $cropType => $count) {
-                $message .= ucfirst($cropType) . ": " . $count . "\n";
+                $message .= "§e" . ucfirst($cropType) . ": §f" . $count . "\n";
             }
         }
 
