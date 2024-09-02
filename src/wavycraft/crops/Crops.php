@@ -54,7 +54,8 @@ class Crops extends PluginBase implements Listener {
         $player = $event->getPlayer();
 
         if ($this->isCrop($block)) {
-            $this->incrementCropCount($player, $block);
+            $totalCropsBroken = $this->countFullCropStack($block);
+            $this->incrementCropCount($player, $block, $totalCropsBroken);
         }
     }
 
@@ -87,6 +88,27 @@ class Crops extends PluginBase implements Listener {
         }
     }
 
+    public function countFullCropStack($block) : int{
+        $count = 1;
+
+        $position = $block->getPosition();
+        $world = $block->getPosition()->getWorld();
+        $blockTypeId = $block->getTypeId();
+
+        $y = $position->getY() + 1;
+        while ($y < $world->getMaxY()) {
+            $aboveBlock = $world->getBlockAt($position->getX(), $y, $position->getZ());
+            if ($aboveBlock->getTypeId() === $blockTypeId) {
+                $count++;
+                $y++;
+            } else {
+                break;
+            }
+        }
+
+        return $count;
+    }
+
     public function isCrop($block) : bool{
         return in_array($block->getTypeId(), [
             BlockTypeIds::BAMBOO,
@@ -103,19 +125,19 @@ class Crops extends PluginBase implements Listener {
         ]);
     }
 
-    public function incrementCropCount(Player $player, $block) {
+    public function incrementCropCount(Player $player, $block, int $totalCropsBroken = 1) {
         $cropType = $this->getCropName($block);
 
         $topPlayers = $this->cropData->getAll();
 
         if (isset($topPlayers[$player->getName()])) {
             if (isset($topPlayers[$player->getName()][$cropType])) {
-                $topPlayers[$player->getName()][$cropType]++;
+                $topPlayers[$player->getName()][$cropType] += $totalCropsBroken;
             } else {
-                $topPlayers[$player->getName()][$cropType] = 1;
+                $topPlayers[$player->getName()][$cropType] = $totalCropsBroken;
             }
         } else {
-            $topPlayers[$player->getName()] = [$cropType => 1];
+            $topPlayers[$player->getName()] = [$cropType => $totalCropsBroken];
         }
 
         $this->cropData->setAll($topPlayers);
