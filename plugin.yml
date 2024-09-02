@@ -1,0 +1,11 @@
+name: CropTracker
+version: 1.0.0
+author: WavyCraft
+api: 5.0.0
+main: wavycraft\crops\Crops
+
+permissions:
+  croptracker.cropft:
+    default: op
+  croptracker.crops:
+    default: true
