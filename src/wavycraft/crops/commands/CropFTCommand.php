@@ -30,6 +30,7 @@ class CropFTCommand extends Command implements PluginOwned {
         }
 
         Crops::getInstance()->displayTopPlayers($sender);
+        $sender->sendMessage("§aTop crops floating text created!");
         return true;
     }
 }
