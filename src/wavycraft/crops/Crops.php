@@ -151,11 +151,11 @@ class Crops extends PluginBase implements Listener {
             FloatingTextAPI::create($position, $tag, "");
         }
 
-        $text = "Top 10 Crop Breakers:\n";
+        $text = "§l-=Top 10 Crop Harvesters=-\n";
         $rank = 1;
         foreach ($topPlayers as $playerName => $cropData) {
             $totalCrops = is_array($cropData) ? array_sum($cropData) : $cropData;
-            $text .= "#$rank $playerName: $totalCrops crops\n";
+            $text .= "{$rank}. {$playerName}: §e{$totalCrops} crops\n";
             $rank++;
         }
 
@@ -178,10 +178,10 @@ class Crops extends PluginBase implements Listener {
     public function displayTopPlayers(Player $player, string $cropType = null) {
         $topPlayers = $this->getTopPlayers(10, $cropType);
 
-        $text = "Top 10 Crop Breakers:\n";
+        $text = "§l-=Top 10 Crop Harvesters=-\n";
         $rank = 1;
         foreach ($topPlayers as $playerName => $cropCount) {
-            $text .= "#$rank $playerName: $cropCount crops\n";
+            $text .= "{$rank}. {$playerName}: §e{$totalCrops} crops\n";
             $rank++;
         }
 
